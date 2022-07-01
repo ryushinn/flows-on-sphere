@@ -54,7 +54,4 @@ python EMP.py --N 1
 
 2. The gradient of mobius transforms ($\theta\rightarrow z\rightarrow h_w(z)\rightarrow \hat{\theta}$):
 
-Note that we only want the determinant of the gradient $\partial\hat{\theta}/\partial\theta$. As the mobius transform $h$ maps a point in a circle into another point in the circle, we can have that:
-$$
-\det|\partial\hat{\theta}/\partial\theta| =\|\frac{\partial h}{\partial\theta}\|_2
-$$
+Note that we only want the determinant of the gradient $\partial\hat{\theta}/\partial\theta$. As the mobius transform $h$ maps a point in a circle into another point in the circle, we can have: $\det|\partial\hat{\theta}/\partial\theta| =\|\frac{\partial h}{\partial\theta}\|_2$.
