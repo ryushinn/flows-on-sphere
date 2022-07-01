@@ -11,8 +11,8 @@ import sd, utils, flows, visualize
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='fit the target density (specified in the paper) with Mobius Spline flows.')
     parser.add_argument('--N', type=int, default=1, help='the number of stacked flows')
-    parser.add_argument('--Km', type=int, default=6, help='the number of centers of mobius transforms')
-    parser.add_argument('--Ks', type=int, default=12, help='the number of segments of spline transforms')
+    parser.add_argument('--Km', type=int, default=12, help='the number of centers of mobius transforms')
+    parser.add_argument('--Ks', type=int, default=32, help='the number of segments of spline transforms')
     parser.add_argument('--n_iter', type=int, default=20000, help='the number of iterations')
     parser.add_argument('--n_disp_iter', type=int, default=2000, help='the number of iteration interval of displaying validating results')
     parser.add_argument('--lr', type=float, default=2e-4, help='the learning rate for training flows')
