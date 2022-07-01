@@ -3,7 +3,9 @@ import torch
 from torch import optim
 import numpy as np
 from tqdm import tqdm
-import sd, utils, flows
+import matplotlib.pyplot as plt
+import os
+import sd, utils, flows, visualize
 
 
 if __name__ == '__main__':
@@ -17,8 +19,10 @@ if __name__ == '__main__':
     parser.add_argument('--bs', type=int, default=256, help='the batch size for training flows')
     parser.add_argument('--n_val_samples', type=int, default=20000, help='the number of validating samples')
     parser.add_argument('--RD_SEED', type=int, default=42, help='the random seed used for reproducible experiments')
+    parser.add_argument('--save_path', type=str, default='.', help='the path of saving results')
     args = parser.parse_args()
 
+    # hyperparameters
     D = 2
     N = args.N
     Km = args.Km
@@ -30,13 +34,18 @@ if __name__ == '__main__':
     lr = args.lr
     bs = args.bs
     n_val_samples = args.n_val_samples
+    
+    path = args.save_path
 
     # for reproducible experiments
     RD_SEED = args.RD_SEED
     torch.manual_seed(RD_SEED);  # reproducibility
     np.random.seed(RD_SEED)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    # device = 'cpu'
 
+
+    # training
     MS = flows.MS(D, N, Km, Ks)
     MS = MS.to(device)
 
@@ -61,7 +70,7 @@ if __name__ == '__main__':
 
             z, ldjs = MS(x)
 
-            loss = torch.mean(log_prob - ldjs - torch.log(s2_target(z, device)))
+            loss = torch.mean(log_prob - ldjs - torch.log(utils.s2_target(z, device)))
 
             optimizer.zero_grad()
             loss.backward()
@@ -83,3 +92,17 @@ if __name__ == '__main__':
             logs['val_ESS'] = val_ESS
             t.set_postfix(logs)
             t.update()
+
+    # saving
+    fig, axes = plt.subplots(3, 1, figsize=(8, 15))
+    axes[0].plot(losses)
+    axes[1].plot(val_kl)
+    axes[2].plot(val_ess)
+    plt.savefig(os.path.join(path, 'metrics.png'), bbox_inches='tight')
+    plt.show()
+
+    vis_samples, _ = sd.sample_sd(D, 2500)
+    with torch.no_grad():
+        vis_samples = vis_samples.to(device)
+        z, ldjs = MS(vis_samples)
+        visualize.plot_model_density(z, save=True, path=os.path.join(path, 'flow_density.png'))
