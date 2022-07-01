@@ -38,7 +38,7 @@ Approximated density by EMP ($N_T=1$):
 # Run
 
 ```bash
-pip install -t requirements.txt
+pip install -r requirements.txt
 
 # run MS
 python MS.py --N 1 --Km 12 --Ks 32
