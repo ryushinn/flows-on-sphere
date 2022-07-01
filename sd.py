@@ -32,3 +32,6 @@ def expmap(x, v):
     v_norm = torch.norm(v, dim=1, keepdim=True)
     return x * torch.cos(v_norm) + (v / v_norm) * torch.sin(v_norm)
 
+def batch_sampler(D, bs, method='uniform'):
+    while True:
+        yield sample_sd(D, bs, method)
