@@ -20,19 +20,19 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     D = 2
-    N = args['N']
-    Km = args['Km']
-    Ks = args['Ks']
+    N = args.N
+    Km = args.Km
+    Ks = args.Ks
 
-    n_iter = args['n_iter']
-    display_iter = args['n_disp_iter']
+    n_iter = args.n_iter
+    display_iter = args.n_disp_iter
 
-    lr = args['lr']
-    bs = args['bs']
-    n_val_samples = args['n_val_samples']
+    lr = args.lr
+    bs = args.bs
+    n_val_samples = args.n_val_samples
 
     # for reproducible experiments
-    RD_SEED = args['RD_SEED']
+    RD_SEED = args.RD_SEED
     torch.manual_seed(RD_SEED);  # reproducibility
     np.random.seed(RD_SEED)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
