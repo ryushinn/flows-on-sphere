@@ -5,7 +5,7 @@ import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import os
-import sd, utils, flows, visualize
+from . import sd, utils, flows, visualize
 
 
 if __name__ == '__main__':

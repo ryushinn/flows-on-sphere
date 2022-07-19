@@ -1,7 +1,6 @@
 import numpy as np
 
-import sd
-import utils
+from . import sd, utils
 
 import torch
 from torch import nn

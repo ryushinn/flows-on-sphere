@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 import torch
 
-import utils
+from . import utils
 
 NUM_POINTS = 200
 
