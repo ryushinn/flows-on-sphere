@@ -241,7 +241,10 @@ class CircularSplineTransform(nn.Module):
     def _forward(self, x, x_ks, y_ks, derivatives):
         k = torch.searchsorted(x_ks.squeeze(dim=0), x).squeeze(dim=1)
 
-        k = torch.where(k == 0, 1, k) - 1
+        k = torch.where(k == 0, 1, k)
+        k = torch.where(k == self.K + 1, self.K, k)
+        k = k - 1
+
         nk = k + 1 # next k
 
         if self.n_cond == 0:
