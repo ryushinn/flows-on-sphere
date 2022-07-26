@@ -383,10 +383,7 @@ class MobiusSplineFlow(nn.Module):
             raise NotImplementedError("only the case D=2 is implemented, so only 1 or 0 ordering")
         
 
-    def forward(self, x):
-        r = x[:, [2]]
-        z = torch.atan2(x[:, [1]], x[:, [0]])
-        z = torch.where(z >= 0, z, z + torch.pi * 2)
+    def forward(self, r, z):
 
         if self.ordering == 0:
             tr, dtr = self.spline(r)
@@ -395,15 +392,9 @@ class MobiusSplineFlow(nn.Module):
             tz, dtz = self.mobius(z)
             tr, dtr = self.spline(r, z)
 
-        tx = torch.hstack([
-            torch.cos(tz) * torch.sqrt(1 - tr ** 2),
-            torch.sin(tz) * torch.sqrt(1 - tr ** 2),
-            tr
-        ])
-
         ldj = torch.log(dtr) + torch.log(dtz)
 
-        return tx, ldj
+        return tr, tz, ldj
 
 class MS(nn.Module):
     def __init__(self, D, N, Km, Ks, hemi=False):
@@ -428,15 +419,22 @@ class MS(nn.Module):
         
         self.layers = nn.ModuleList(layers)
 
-    def forward(self, x):
-        x = torch.atleast_2d(x)
-        assert x.ndim == 2 and x.size(1) == self.D + 1
+    def forward(self, theta, phi):
+        theta = torch.atleast_2d(theta)
+        phi = torch.atleast_2d(phi)
+        
+        r = torch.cos(theta)
+        z = phi
 
         ldjs = 0
         for layer in self.layers:
-            x, ldj = layer(x)
+            r, z, ldj = layer(r, z)
             ldjs += ldj
-        return x, ldjs
+
+        ttheta = torch.acos(r)
+        tphi = z
+        
+        return ttheta, tphi, ldjs
 
 
         
