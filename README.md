@@ -20,7 +20,7 @@ We conduct the experiments reported in the Table.1 in the paper, and compare res
 ## Qualitative
 |  Tagrgt Density   |   Approximated Density by MS <img src="https://latex.codecogs.com/svg.image?\inline&space;(N_T=1,K_m=12,K_s=&space;32)" title="https://latex.codecogs.com/svg.image?\inline (N_T=1,K_m=12,K_s= 32)" /> |  Approximated Density by EMSRE <img src="https://latex.codecogs.com/svg.image?\inline&space;(N_T=24,&space;K=1)" title="https://latex.codecogs.com/svg.image?\inline (N_T=24, K=1)" />  |  Approximated Density by EMP <img src="https://latex.codecogs.com/svg.image?\inline&space;(N_T=1)" title="https://latex.codecogs.com/svg.image?\inline (N_T=1)" />   |
 | --- | --- | --- | --- |
-|  ![s2_target_density](md.assets/README/s2_target_density.png)   |  <img src="md.assets/README/flow_density_MS.png" alt="flow_density_MS" style="zoom:67%;" />   |  <img src="md.assets/README/flow_density_EMSRE.png" alt="flow_density_EMSRE" style="zoom:67%;" />   |  <img src="md.assets/README/flow_density_EMP.png" alt="flow_density_EMP" style="zoom:67%;" />   |
+|  <img src="md.assets/README/s2_target_density.png" alt="s2_target_density" style="zoom:150%"/> |  <img src="md.assets/README/flow_density_MS.png" alt="flow_density_MS" />   |  <img src="md.assets/README/flow_density_EMSRE.png" alt="flow_density_EMSRE" />   |  <img src="md.assets/README/flow_density_EMP.png" alt="flow_density_EMP"/>   |
 
 # Run
 
